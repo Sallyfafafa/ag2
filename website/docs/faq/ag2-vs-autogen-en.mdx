@@ -1,0 +1,233 @@
+---
+title: AG2 vs AutoGen - A Comprehensive Comparison
+sidebarTitle: AG2 vs AutoGen
+---
+
+# AG2 vs AutoGen: A Comprehensive Comparison
+
+## Overview
+
+AG2 is the evolution of Microsoft AutoGen, created on November 11, 2024, by the founding team and core contributors of AutoGen. AG2 is not merely a simple fork but represents a comprehensive upgrade and refactoring of the original AutoGen framework.
+
+## Core Differences
+
+### 1. Revolutionary Governance Changes
+
+**AutoGen (Microsoft)**
+- Microsoft-led development and maintenance
+- Corporate-driven governance model
+- Relatively closed decision-making process
+
+**AG2 (AG2AI)**
+- New open governance organization [AG2AI](https://github.com/ag2ai)
+- Community-driven development model
+- Invites collaborators from all organizations
+- Transparent decision-making process
+
+### 2. Significant License Change
+
+**AutoGen**: MIT License
+**AG2**: Apache 2.0 License (from v0.3 onwards)
+
+**Significance of this change:**
+- Enhanced commitment to open-source collaboration
+- Additional protections for contributors and users
+- Better enterprise-grade usage guarantees
+
+### 3. Project Vision and Positioning
+
+**AutoGen**
+- Primarily positioned as a multi-agent conversation framework
+- Focused on LLM workflow orchestration
+
+**AG2**
+- Positioned as "Open-Source AgentOS for AI Agents"
+- Grander vision: building a complete agent operating system
+- Not just a framework, but an entire ecosystem
+
+## Technical Architecture Upgrades
+
+### 1. Enhanced Modular Design
+
+AG2 has optimized the following architectural components based on the original AutoGen:
+
+```
+AG2 Architecture Components:
+├── Core Agent System
+├── Orchestration Engine
+├── Tool Integration Framework
+├── Multi-Model Support
+├── Advanced Concepts Support
+└── Enterprise Features
+```
+
+### 2. API Design Improvements
+
+**New LLMConfig System:**
+```python
+# AG2 new-style configuration
+from autogen import LLMConfig
+
+llm_config = LLMConfig.from_json(path="OAI_CONFIG_LIST")
+with llm_config:
+    assistant = AssistantAgent("assistant")
+```
+
+**Enhanced Context Management:**
+- Better configuration management
+- Improved resource cleanup
+- Enhanced error handling
+
+### 3. New Core Features
+
+#### Structured Output Support
+```python
+# Support for structured outputs
+from autogen import ConversableAgent
+from pydantic import BaseModel
+
+class TaskResult(BaseModel):
+    success: bool
+    data: dict
+    errors: list[str]
+```
+
+#### MCP (Model Context Protocol) Integration
+```python
+# New MCP client support
+from autogen.mcp import create_toolkit
+toolkit = create_toolkit("example-server")
+```
+
+#### Enhanced Tool System
+- More flexible tool registration mechanism
+- Improved error handling
+- Better security controls
+
+## Developer Experience Improvements
+
+### 1. Simplified Installation and Configuration
+
+**Modular Installation:**
+```bash
+# Install different model providers as needed
+pip install "ag2[openai]"
+pip install "ag2[gemini]"
+pip install "ag2[anthropic,cohere,mistral]"
+```
+
+### 2. Backward Compatibility
+
+AG2 maintains high compatibility with AutoGen:
+- `autogen` and `ag2` are aliases for the same PyPI package
+- Existing AutoGen code can migrate seamlessly
+- Provides smooth upgrade path
+
+### 3. Documentation and Examples Improvements
+
+- Brand new documentation website [docs.ag2.ai](https://docs.ag2.ai/)
+- Rich example library [build-with-ag2](https://github.com/ag2ai/build-with-ag2)
+- Improved tutorials and guides
+
+## Ecosystem Expansion
+
+### 1. Diverse Agent Orchestration Patterns
+
+**Orchestration patterns supported by AG2:**
+- GroupChat
+- Swarm
+- Sequential Chat
+- Nested Chat
+- Custom orchestration patterns
+
+### 2. Enterprise-Grade Features
+
+- Improved security controls
+- Better monitoring and logging
+- Enhanced error handling and recovery
+- Production environment deployment support
+
+### 3. Community Ecosystem Building
+
+- Active Discord community
+- Regular community events
+- Open contribution guidelines
+- Diverse maintainer team
+
+## Migration Guide
+
+### Migrating from AutoGen to AG2
+
+1. **Installation Upgrade:**
+```bash
+# Upgrade from autogen
+pip install -U "autogen[openai]"
+# or
+pip install -U "ag2[openai]"
+```
+
+2. **Code Adaptation:**
+Most existing code requires no modification, but we recommend using the new LLMConfig system:
+
+```python
+# Old way (still supported)
+config_list = [{"model": "gpt-4", "api_key": "your-key"}]
+
+# New way (recommended)
+from autogen import LLMConfig
+llm_config = LLMConfig.from_json(path="OAI_CONFIG_LIST")
+```
+
+3. **Adopting New Features:**
+- Use structured outputs
+- Adopt new tool registration methods
+- Leverage MCP integration capabilities
+
+## Future Development Direction
+
+### AG2 Roadmap
+
+1. **Short-term Goals (2024-2025):**
+   - Improve core framework stability
+   - Expand model provider support
+   - Enhance tool ecosystem
+
+2. **Medium-term Goals (2025-2026):**
+   - Build complete AgentOS ecosystem
+   - Support large-scale multi-agent deployment
+   - Provide cloud-native solutions
+
+3. **Long-term Vision:**
+   - Become the standard platform in the AI agent field
+   - Support complex enterprise-level application scenarios
+   - Promote popularization and development of AI agent technology
+
+## Community Participation
+
+### How to Participate in the AG2 Community
+
+1. **Code Contributions:**
+   - GitHub: [ag2ai/ag2](https://github.com/ag2ai/ag2)
+   - Check [Contributing Guide](https://docs.ag2.ai/latest/docs/contributor-guide/contributing)
+
+2. **Community Communication:**
+   - Discord: [Join AG2 Discord](https://discord.gg/pAbnFJrkgZ)
+   - Twitter: [@ag2oss](https://x.com/ag2oss)
+
+3. **Feedback and Suggestions:**
+   - GitHub Issues
+   - Community forums
+   - Email contact: support@ag2.ai
+
+## Summary
+
+Key advantages of AG2 over AutoGen:
+
+1. **Open Governance**: Shift from corporate-led to community-driven
+2. **License Upgrade**: Apache 2.0 provides better legal protection
+3. **Architecture Refactoring**: Comprehensive upgrade to AgentOS
+4. **Ecosystem Expansion**: Richer tools and integration support
+5. **Enterprise-Friendly**: Enhanced security and production environment support
+6. **Active Community**: More open contribution and decision-making mechanisms
+
+AG2 not only inherits all the excellent features of AutoGen but also achieves comprehensive upgrades in governance model, technical architecture, and ecosystem building. It is a truly future-oriented AI agent platform.
