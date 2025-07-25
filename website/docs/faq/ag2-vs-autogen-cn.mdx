@@ -1,0 +1,233 @@
+---
+title: AG2 与 AutoGen 的差别详解
+sidebarTitle: AG2 vs AutoGen (中文)
+---
+
+# AG2 与 AutoGen 的差别详解
+
+## 概述
+
+AG2 是 Microsoft AutoGen 的进化版本，由 AutoGen 的创始人和核心贡献者团队于2024年11月11日创建。AG2 不仅仅是一个简单的分叉，而是对原有 AutoGen 框架的全面升级和重构。
+
+## 核心差别
+
+### 1. 治理结构的革命性变化
+
+**AutoGen (Microsoft)**
+- 由 Microsoft 主导开发和维护
+- 企业主导的治理模式
+- 决策过程相对封闭
+
+**AG2 (AG2AI)**
+- 全新的开放治理组织 [AG2AI](https://github.com/ag2ai)
+- 社区驱动的开发模式
+- 邀请各组织的协作者共同贡献
+- 透明的决策过程
+
+### 2. 许可证的重大变更
+
+**AutoGen**: MIT 许可证
+**AG2**: Apache 2.0 许可证（从 v0.3 开始）
+
+**这一变更的意义：**
+- 增强开源协作的承诺
+- 为贡献者和用户提供额外保护
+- 更好的企业级使用保障
+
+### 3. 项目愿景和定位
+
+**AutoGen**
+- 主要定位为多智能体对话框架
+- 专注于 LLM 工作流程编排
+
+**AG2**
+- 定位为"开源 AgentOS for AI Agents"
+- 更宏大的愿景：构建完整的智能体操作系统
+- 不仅是框架，更是生态系统
+
+## 技术架构升级
+
+### 1. 模块化设计增强
+
+AG2 在原有 AutoGen 基础上进行了以下架构优化：
+
+```
+AG2 架构组件：
+├── 核心智能体系统 (Core Agent System)
+├── 编排引擎 (Orchestration Engine)
+├── 工具集成框架 (Tool Integration Framework)
+├── 多模型支持 (Multi-Model Support)
+├── 高级概念支持 (Advanced Concepts)
+└── 企业级特性 (Enterprise Features)
+```
+
+### 2. API 设计改进
+
+**新的 LLMConfig 系统：**
+```python
+# AG2 新式配置
+from autogen import LLMConfig
+
+llm_config = LLMConfig.from_json(path="OAI_CONFIG_LIST")
+with llm_config:
+    assistant = AssistantAgent("assistant")
+```
+
+**增强的上下文管理：**
+- 更好的配置管理
+- 改进的资源清理
+- 增强的错误处理
+
+### 3. 新增核心功能
+
+#### 结构化输出支持
+```python
+# 支持结构化输出
+from autogen import ConversableAgent
+from pydantic import BaseModel
+
+class TaskResult(BaseModel):
+    success: bool
+    data: dict
+    errors: list[str]
+```
+
+#### MCP (Model Context Protocol) 集成
+```python
+# 新的 MCP 客户端支持
+from autogen.mcp import create_toolkit
+toolkit = create_toolkit("example-server")
+```
+
+#### 增强的工具系统
+- 更灵活的工具注册机制
+- 改进的错误处理
+- 更好的安全控制
+
+## 开发体验改进
+
+### 1. 安装和配置简化
+
+**模块化安装：**
+```bash
+# 按需安装不同的模型提供商
+pip install "ag2[openai]"
+pip install "ag2[gemini]"
+pip install "ag2[anthropic,cohere,mistral]"
+```
+
+### 2. 向后兼容性
+
+AG2 保持与 AutoGen 的高度兼容性：
+- `autogen` 和 `ag2` 是同一个 PyPI 包的别名
+- 现有 AutoGen 代码可以无缝迁移
+- 提供平滑的升级路径
+
+### 3. 文档和示例改进
+
+- 全新的文档网站 [docs.ag2.ai](https://docs.ag2.ai/)
+- 丰富的示例库 [build-with-ag2](https://github.com/ag2ai/build-with-ag2)
+- 改进的教程和指南
+
+## 生态系统扩展
+
+### 1. 多样化的智能体编排模式
+
+**AG2 支持的编排模式：**
+- GroupChat（群聊模式）
+- Swarm（蜂群模式）
+- Sequential Chat（顺序对话）
+- Nested Chat（嵌套对话）
+- 自定义编排模式
+
+### 2. 企业级特性
+
+- 改进的安全控制
+- 更好的监控和日志
+- 增强的错误处理和恢复
+- 生产环境部署支持
+
+### 3. 社区生态建设
+
+- 活跃的 Discord 社区
+- 定期的社区活动
+- 开放的贡献指南
+- 多元化的维护者团队
+
+## 迁移指南
+
+### 从 AutoGen 迁移到 AG2
+
+1. **安装升级：**
+```bash
+# 从 autogen 升级
+pip install -U "autogen[openai]"
+# 或者
+pip install -U "ag2[openai]"
+```
+
+2. **代码适配：**
+大部分现有代码无需修改，但建议使用新的 LLMConfig 系统：
+
+```python
+# 旧的方式 (仍然支持)
+config_list = [{"model": "gpt-4", "api_key": "your-key"}]
+
+# 新的方式 (推荐)
+from autogen import LLMConfig
+llm_config = LLMConfig.from_json(path="OAI_CONFIG_LIST")
+```
+
+3. **新特性采用：**
+- 使用结构化输出
+- 采用新的工具注册方式
+- 利用 MCP 集成能力
+
+## 未来发展方向
+
+### AG2 的路线图
+
+1. **短期目标（2024-2025）：**
+   - 完善核心框架稳定性
+   - 扩展模型提供商支持
+   - 增强工具生态系统
+
+2. **中期目标（2025-2026）：**
+   - 构建完整的 AgentOS 生态
+   - 支持大规模多智能体部署
+   - 提供云原生解决方案
+
+3. **长期愿景：**
+   - 成为 AI 智能体领域的标准平台
+   - 支持复杂的企业级应用场景
+   - 推动 AI 智能体技术的普及和发展
+
+## 社区参与
+
+### 如何参与 AG2 社区
+
+1. **代码贡献：**
+   - GitHub: [ag2ai/ag2](https://github.com/ag2ai/ag2)
+   - 查看 [贡献指南](https://docs.ag2.ai/latest/docs/contributor-guide/contributing)
+
+2. **社区交流：**
+   - Discord: [加入 AG2 Discord](https://discord.gg/pAbnFJrkgZ)
+   - Twitter: [@ag2oss](https://x.com/ag2oss)
+
+3. **反馈和建议：**
+   - GitHub Issues
+   - 社区论坛
+   - 邮件联系：support@ag2.ai
+
+## 总结
+
+AG2 相对于 AutoGen 的主要优势：
+
+1. **开放治理**：从企业主导转向社区驱动
+2. **许可证升级**：Apache 2.0 提供更好的法律保护
+3. **架构重构**：向 AgentOS 的全面升级
+4. **生态扩展**：更丰富的工具和集成支持
+5. **企业友好**：增强的安全性和生产环境支持
+6. **社区活跃**：更开放的贡献和决策机制
+
+AG2 不仅继承了 AutoGen 的所有优秀特性，更在此基础上实现了治理模式、技术架构和生态建设的全面升级，是一个真正面向未来的 AI 智能体平台。
